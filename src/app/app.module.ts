@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { MockApiModule } from './mock-api/mock-api.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MockApiModule } from './mock-api/mock-api.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
-    MockApiModule
+    MockApiModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
