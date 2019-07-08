@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/services/auth.service';
+import { HeaderComponent } from './core/components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { AuthService } from './auth/services/auth.service';
 export class AppComponent {
 
   constructor() {}
+
   title = 'Nortal Todo application';
 
 }
