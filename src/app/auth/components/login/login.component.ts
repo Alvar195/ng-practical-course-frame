@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,15 +7,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = null;
+  // ng8 @ViewChild('form', {static:false})
+  @ViewChild('form') loginForm: NgForm;
 
   constructor() { }
 
-  ngOnInit() {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    });
+  ngOnInit() { }
+
+  onSubmit() {
+    console.log(this.loginForm);
   }
 
 }
