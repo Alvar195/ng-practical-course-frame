@@ -18,6 +18,6 @@ import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/materia
     FormsModule,
     MatCardModule
   ],
-  exports: [AuthComponent, LoginComponent]
+  exports: [AuthComponent, LoginComponent, SignUpComponent]
 })
 export class AuthModule {}

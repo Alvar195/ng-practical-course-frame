@@ -20,41 +20,46 @@ export class TodoApiInterceptor implements HttpInterceptor {
     return this.handleRequest(request);
   }
 
-  handleRequest({body, url}: ApiRequest): ApiResponse<ApiResponseBody> {
+  handleRequest({ body, url }: ApiRequest): ApiResponse<ApiResponseBody> {
     switch (url) {
-      case environment.api.login: return this.handleLogin(body as UserCredentials);
-      case environment.api.signup: return this.handleSignup(body as UserCredentials);
-      case environment.api.validateUsername: return this.handleUsernameValidation(body as User);
-      default: return this.handleUknown();
+      case environment.api.login:
+        return this.handleLogin(body as UserCredentials);
+      case environment.api.signup:
+        return this.handleSignup(body as UserCredentials);
+      case environment.api.validateUsername:
+        return this.handleUsernameValidation(body as User);
+      default:
+        return this.handleUknown();
     }
   }
 
   handleLogin(body: UserCredentials): ApiResponse<User> {
     const authenticated: boolean = this.authenticateUser(body);
-    const responseBody: User = authenticated ? {username: body.username} : null;
+    const responseBody: User = authenticated ? { username: body.username } : null;
     const status = authenticated ? 200 : 403;
     return this.constructResponse<User>(responseBody, status);
   }
 
-  handleSignup({username, password}: UserCredentials): ApiResponse<User> {
-    localStorage.setItem(username, JSON.stringify({username, password}));
-    return this.constructResponse({username});
+  handleSignup({ username, password }: UserCredentials): ApiResponse<User> {
+    localStorage.setItem(username, JSON.stringify({ username, password }));
+    return this.constructResponse({ username });
   }
 
-  handleUsernameValidation({username}): ApiResponse<UserValidation> {
-    const exists: UserValidation = {exists: !!this.getUser(username).username};
+  handleUsernameValidation({ username }): ApiResponse<UserValidation> {
+    const exists: UserValidation = { exists: !!this.getUser(username) };
+    // const exists: UserValidation = { exists: false };
     return this.constructResponse<UserValidation>(exists);
   }
 
   handleUknown(): ApiResponse<ErrorResponse> {
-    return this.constructResponse<ErrorResponse>({errorMsg: 'I don\'t know how to handle this'}, 400);
+    return this.constructResponse<ErrorResponse>({ errorMsg: 'I don\'t know how to handle this' }, 400);
   }
 
   getUser(username: string): UserCredentials {
     return JSON.parse(localStorage.getItem(username));
   }
 
-  authenticateUser({username, password}: UserCredentials): boolean {
+  authenticateUser({ username, password }: UserCredentials): boolean {
     const user = this.getUser(username);
     return user ? user.password === password : null;
   }
@@ -66,6 +71,6 @@ export class TodoApiInterceptor implements HttpInterceptor {
    * methodName<TypeWeWantToPass>() (like in calls above)
    */
   constructResponse<T>(body: T, status: number = 200): ApiResponse<T> {
-    return of(new HttpResponse({body, status}));
+    return of(new HttpResponse({ body, status }));
   }
 }
