@@ -22,6 +22,10 @@ export class AuthService {
     return this.http.post(environment.api.validateUsername, { username }) as Observable<UserValidation>;
   }
 
+  signUp({ username, password }: UserCredentials): Observable<User> {
+    return this.http.post(environment.api.signup, { username, password }) as Observable<User>;
+  }
+
   logout() {
     this.user$.next(null);
   }

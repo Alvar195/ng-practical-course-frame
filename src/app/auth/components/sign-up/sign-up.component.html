@@ -22,12 +22,16 @@
         </mat-label>
         <input id="confirmPassword" name="confirmPassword" matInput type="password" formControlName="confirmPassword">
       </mat-form-field>
+      <span
+        *ngIf="signUpForm.errors && signUpForm.get('confirmPassword').touched && signUpForm.errors && signUpForm.errors.NoPasswordMatch">
+          Passwords don't match
+      </span>
+      <br>
       <button
         class="submit-btn"
         color="primary"
         mat-raised-button
-        type="submit"
-        [disabled]="">
+        type="submit">
         Log in
       </button>
     </form>

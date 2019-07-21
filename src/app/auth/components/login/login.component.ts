@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { UserCredentials } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +11,14 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   // ng8 @ViewChild('form', {static:false})
   @ViewChild('form') loginForm: NgForm;
+  @Output() loginRequested = new Subject<UserCredentials>();
 
   constructor() { }
 
   ngOnInit() { }
 
   onSubmit() {
-    console.log(this.loginForm);
+    this.loginRequested.next(this.loginForm.value as UserCredentials);
   }
 
 }

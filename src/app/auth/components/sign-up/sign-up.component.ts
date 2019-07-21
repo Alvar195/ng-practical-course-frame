@@ -1,20 +1,18 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { SignUpFormInterface } from './sign-up-form.interface';
-import { debounceTime, map } from 'rxjs/operators';
+import { Component, OnInit, Output } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
+import { UserCredentials } from '../../models/user.model';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit, OnDestroy {
-  @Output() signUpRequested = new Subject<SignUpFormInterface>();
-  @Output() isValidUsername = new Subject<string>();
+export class SignUpComponent implements OnInit {
+  @Output() signUpRequested = new Subject<UserCredentials>();
   private signUpForm: FormGroup;
-  private usernameSubscription$: Subscription;
 
   constructor(private authService: AuthService) { }
 
@@ -31,22 +29,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }, {
       validators: this.passwordsMatch
     });
-
-    this.usernameSubscription$ = this.signUpForm.get('username').valueChanges
-      .pipe(debounceTime(250))
-      .subscribe((value: string) => {
-        console.log(value);
-        this.isValidUsername.next(value);
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.usernameSubscription$.unsubscribe();
   }
 
   onSubmit() {
-    console.log(this.signUpForm);
-    this.signUpRequested.next(this.signUpForm.value as SignUpFormInterface);
+    this.signUpRequested.next(this.signUpForm.value as UserCredentials);
   }
 
   usernameValid(control: FormControl): Promise<any> | Observable<any> {

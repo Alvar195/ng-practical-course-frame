@@ -1,5 +1,9 @@
 <mat-toolbar>
-  <h1>{{title}}</h1>
-  <span class="example-spacer"></span>
-  <button mat-button *ngIf="isLoggedIn">Logout</button>
+  <mat-toolbar-row>
+    <h1>{{title}}</h1>
+    <span class="example-spacer"></span>
+    <!--    <button mat-button *ngIf="!isLoggedIn" [routerLink]="['/login']">Login</button>-->
+    <!--    <button mat-button *ngIf="!isLoggedIn" [routerLink]="['/sign-up']">Sign Up</button>-->
+    <button mat-button *ngIf="isLoggedIn">Logout</button>
+  </mat-toolbar-row>
 </mat-toolbar>

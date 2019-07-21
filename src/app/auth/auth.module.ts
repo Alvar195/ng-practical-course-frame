@@ -6,6 +6,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AuthComponent, LoginComponent, SignUpComponent],
@@ -16,7 +17,8 @@ import { MatButtonModule, MatCardModule, MatInputModule } from '@angular/materia
     MatButtonModule,
     MatInputModule,
     FormsModule,
-    MatCardModule
+    MatCardModule,
+    RouterModule
   ],
   exports: [AuthComponent, LoginComponent, SignUpComponent]
 })

@@ -1,3 +1,9 @@
-<p>
-  auth works!
-</p>
+<app-login *ngIf="login" (loginRequested)="onLoginRequested($event)"></app-login>
+<app-sign-up *ngIf="!login" (signUpRequested)="onSignUpRequested($event)"></app-sign-up>
+<button
+  class="submit-btn"
+  color="primary"
+  mat-stroked-button
+  (click)="loginToggle()">
+  {{ login ? 'Or Sign Up' : 'Or Login' }}
+</button>
