@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatToolbar } from '@angular/material';
-import { AppComponent } from '../../../app.component';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +10,11 @@ export class HeaderComponent implements OnInit {
   @Input() title: string;
   @Input() isLoggedIn: boolean;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {}
+
+  onLogout() {
+    this.authService.logout();
+  }
 }
