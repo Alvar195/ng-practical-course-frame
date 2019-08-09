@@ -24,4 +24,15 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('test inputs', () => {
+    expect(component.title).toBeUndefined();
+    expect(component.isLoggedIn).toBeUndefined();
+    const title = 'title';
+    const isLoggedIn = false;
+    component.title = title;
+    component.isLoggedIn = isLoggedIn;
+    expect(component.title).toEqual(title);
+    expect(component.isLoggedIn).toEqual(isLoggedIn);
+  });
 });

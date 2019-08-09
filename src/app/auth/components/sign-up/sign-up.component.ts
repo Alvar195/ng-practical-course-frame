@@ -12,7 +12,7 @@ import { UserCredentials } from '../../models/user.model';
 })
 export class SignUpComponent implements OnInit {
   @Output() signUpRequested = new Subject<UserCredentials>();
-  private signUpForm: FormGroup;
+  signUpForm: FormGroup;
 
   constructor(private authService: AuthService) { }
 
@@ -32,20 +32,11 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signUpForm);
+    // console.log(this.signUpForm);
     this.signUpRequested.next(this.signUpForm.value as UserCredentials);
   }
 
-  usernameValid(control: FormControl): Promise<any> | Observable<any> {
-    // return this.authService.validateUsername({ username: control.value }).toPromise().then(res => {
-    //   return new Promise((resolve, reject) => {
-    //     if (res.exists) {
-    //       return resolve(res);
-    //     } else {
-    //       return resolve(null);
-    //     }
-    //   });
-    // });
+  usernameValid(control: AbstractControl): Promise<any> | Observable<any> {
     return this.authService.validateUsername({ username: control.value }).pipe(map(res => {
       if (res.exists) {
         return res;
