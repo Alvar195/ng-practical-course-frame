@@ -32,7 +32,6 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.signUpForm);
     this.signUpRequested.next(this.signUpForm.value as UserCredentials);
   }
 

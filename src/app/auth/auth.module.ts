@@ -20,6 +20,6 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     RouterModule
   ],
-  exports: [AuthComponent, LoginComponent, SignUpComponent]
+  exports: [AuthComponent]
 })
 export class AuthModule {}
