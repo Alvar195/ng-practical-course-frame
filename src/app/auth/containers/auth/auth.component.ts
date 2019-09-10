@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User, UserCredentials } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -7,9 +8,32 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  private login = true;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
+  loginToggle() {
+    this.login = !this.login;
+  }
+
+  onLoginRequested(user: UserCredentials) {
+    this.authService.login(user).subscribe((userObj: User) => {
+        this.authService.user$.next(userObj);
+        console.log(userObj);
+      },
+      error => {
+        console.error(error);
+      });
+  }
+
+  onSignUpRequested(user: UserCredentials) {
+    this.authService.signUp(user).subscribe((userObj: User) => {
+        console.log(userObj);
+      },
+      error => {
+        console.error(error);
+      });
+  }
 }

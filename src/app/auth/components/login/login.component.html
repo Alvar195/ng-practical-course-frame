@@ -1,3 +1,31 @@
-<p>
-  login works!
-</p>
+<mat-card>
+  <mat-card-header>Login</mat-card-header>
+  <mat-card-content>
+    <form #form="ngForm">
+      <mat-form-field>
+        <mat-label>
+          Username:
+        </mat-label>
+        <input id="username" name="username" matInput type="text" ngModel required #username="ngModel">
+        <mat-error *ngIf="!username.valid">Username is required</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>
+          Password:
+        </mat-label>
+        <input id="password" name="password" matInput type="password" ngModel required #password="ngModel">
+        <mat-error *ngIf="!password.valid">Password is required</mat-error>
+      </mat-form-field>
+      <button
+        class="submit-btn"
+        color="primary"
+        mat-raised-button
+        type="submit"
+        [disabled]="!form.valid"
+        (click)="onSubmit()">
+        Log in
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

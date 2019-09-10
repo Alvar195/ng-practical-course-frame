@@ -1,3 +1,58 @@
-<p>
-  sign-up works!
-</p>
+<mat-card>
+  <mat-card-header>Sign Up</mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>
+          Username:
+        </mat-label>
+        <input id="username" name="username" matInput type="text" formControlName="username">
+        <mat-error *ngIf="signUpForm.get('username').hasError('required')">
+          Username is required
+        </mat-error>
+        <mat-error *ngIf="signUpForm.get('username').hasError('minlength')">
+          Username has to be at least 4 characters
+        </mat-error>
+        <mat-error *ngIf="signUpForm.get('username').hasError('exists')">
+          Username already exists
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>
+          Password:
+        </mat-label>
+        <input id="password" name="password" matInput type="password" formControlName="password">
+        <mat-error *ngIf="signUpForm.get('password').hasError('required')">
+          Password is required
+        </mat-error>
+        <mat-error *ngIf="signUpForm.get('password').hasError('minlength')">
+          Password has to be at least 6 characters
+        </mat-error>
+        <mat-error *ngIf="signUpForm.get('password').hasError('pattern')">
+          Password has to contain at least 1 number
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>
+          Confirm Password:
+        </mat-label>
+        <input id="confirmPassword" name="confirmPassword" matInput type="password" formControlName="confirmPassword">
+      </mat-form-field>
+      <br>
+      <button
+        class="submit-btn"
+        color="primary"
+        mat-raised-button
+        type="submit"
+        [disabled]="!signUpForm.valid"
+      >
+        Sign Up
+      </button>
+      <div *ngIf="signUpForm.get('confirmPassword').touched && signUpForm.hasError('NoPasswordMatch')">
+        Passwords don't match
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
